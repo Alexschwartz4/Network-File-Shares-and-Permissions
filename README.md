@@ -34,7 +34,7 @@ Set the following permissions (share the folder) for the “Domain Users” grou
  </p>
  Folder: “read-access”, Group: “Domain Users”, Permission: “Read”
   </p>
-  <img src="[https://imgur.com/nKLLgm9.png" height="80%" width="80%" alt="Disk Sanitization Steps"/> 
+  <img src="https://imgur.com/nKLLgm9.png" height="80%" width="80%" alt="Disk Sanitization Steps"/> 
  </p>
 Folder: “write-access”,  Group: “Domain Users”, Permissions: “Read/Write”
  </p>
