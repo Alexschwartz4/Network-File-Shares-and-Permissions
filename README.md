@@ -1,9 +1,9 @@
 <p align="center">
-<img src="https://i.imgur.com/pU5A58S.png" alt="Microsoft Active Directory Logo"/>
+<img src="https://imgur.com/Cj8FV6J.png" alt="Microsoft Active Directory Logo"/>
 </p>
 
-<h1>On-premises Active Directory Deployed in the Cloud (Azure)</h1>
-This tutorial outlines the implementation of on-premises Active Directory within Azure Virtual Machines.<br />
+<h1>On-premises Active Directory Network File Shares and Permissions (Azure)</h1>
+This tutorial outlines the implementation of Network File Shares and Permissions in an on-premises Active Directory setting within Azure Virtual Machines.<br />
 
 
 
@@ -21,24 +21,60 @@ This tutorial outlines the implementation of on-premises Active Directory within
 
 <h2>High-Level Deployment and Configuration Steps</h2>
 
-- Step 1: Setup Resources in Azure
-<p>
-
+- Step 1: Create some sample file shares with various permissions
 </p>
-<p>
-Create the Domain Controller VM (Windows Server 2022) named “DC-1”
+Connect/log into DC-1 as your domain admin account (mydomain.com\jane_admin)
+</p>
+Connect/log into Client-1 as a normal user (mydomain\<someuser>)
  </p>
-<img src="https://imgur.com/AfsY0Rp.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+On DC-1, on the C:\ drive, create 4 folders: “read-access”, “write-access”, “no-access”, “accounting”
  </p>
-Set Domain Controller’s NIC Private IP address to be static
+Set the following permissions (share the folder) for the “Domain Users” group:
  </p>
- <img src="https://imgur.com/dkd3YDU.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
- </p>
-Create the Client VM (Windows 10) named “Client-1”. Use the same Resource Group and Vnet of DC-1
- </p>
-  <img src="https://imgur.com/QJptNyi.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+ Folder: “read-access”, Group: “Domain Users”, Permission: “Read”
   </p>
-<br />
-- Step 2: Ensure Connectivity between the client and Domain Controller
+  <img src="[https://imgur.com/nKLLgm9.png" height="80%" width="80%" alt="Disk Sanitization Steps"/> 
+ </p>
+Folder: “write-access”,  Group: “Domain Users”, Permissions: “Read/Write”
+ </p>
+   </p>
+  <img src="[https://imgur.com/kixRIRE.png" height="80%" width="80%" alt="Disk Sanitization Steps"/> 
+ </p>
+Folder: “no-access”, Group: “Domain Admins”, “Permissions: “Read/Write”
+  </p>
+  <img src="[https://imgur.com/r9ZzSxl.png" height="80%" width="80%" alt="Disk Sanitization Steps"/> 
+ </p>
+
+- Step 2: Attempt to access file shares as a normal user
+-  </p>
+On Client-1, navigate to the shared folder (start, run, \\dc-1)
+  </p>
+  <img src="[https://imgur.com/yanqauD.png" height="80%" width="80%" alt="Disk Sanitization Steps"/> 
+ </p>
+Try to access the folders you just created. notice which folders can you access? Which folders can you create stuff in? 
 </p>
-<p>
+- Step 3: Create an “ACCOUNTANTS” Security Group, assign permissions, an test access
+  </p>
+Go back to DC-1, in Active Directory, create a security group called “ACCOUNTANTS”
+
+   </p>
+  <img src="[https://imgur.com/ZpMCxSY.png" height="80%" width="80%" alt="Disk Sanitization Steps"/> 
+ </p>
+On the “accounting” folder you created earlier, set the following permissions:
+  </p>
+Folder: “accounting”, Group: “ACCOUNTANTS”, Permissions: “Read/Write”
+  </p>
+    <img src="[https://imgur.com/LjI10mE.png" height="80%" width="80%" alt="Disk Sanitization Steps"/> 
+  </p>
+On Client-1, as  <someuser>, try to access the accountants folder. It should fail. 
+   </p>
+Log out of Client-1 as  <someuser>
+   </p>
+On DC-1, make <someuser> a member of the “ACCOUNTANTS”  Security Group
+   </p>
+  <img src="[https://imgur.com/yanqauD.png" height="80%" width="80%" alt="Disk Sanitization Steps"/> 
+ </p> 
+Sign back into Client-1 as <someuser> and try to access the “accounting” share in \\DC-1\ - Does it work now?
+  </p>
+  <img src="[[hhttps://imgur.com/39SjQ1f.png" height="80%" width="80%" alt="Disk Sanitization Steps"/> 
+ </p> 
