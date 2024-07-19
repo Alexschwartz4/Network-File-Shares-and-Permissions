@@ -77,5 +77,5 @@ On DC-1, make <someuser> a member of the “ACCOUNTANTS”  Security Group
  </p> 
 Sign back into Client-1 as <someuser> and try to access the “accounting” share in \\DC-1\ - Does it work now?
   </p>
-  <img src="hhttps://imgur.com/39SjQ1f.png" height="80%" width="80%" alt="Disk Sanitization Steps"/> 
+  <img src="https://imgur.com/39SjQ1f.png" height="80%" width="80%" alt="Disk Sanitization Steps"/> 
  </p> 
