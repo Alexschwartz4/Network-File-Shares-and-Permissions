@@ -13,6 +13,7 @@ This tutorial outlines the implementation of Network File Shares and Permissions
 - Remote Desktop
 - Active Directory Domain Services
 - PowerShell
+- File Explorer
 
 <h2>Operating Systems Used </h2>
 
